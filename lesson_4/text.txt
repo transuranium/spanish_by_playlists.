@@ -1,0 +1,84 @@
+Иметь - Tener
+Имею - Tengo 
+Неопределенные артикли  - Un / una
+У меня есть машина - Tengo un coche
+У меня есть брат - Tengo un hermano
+У меня есть сестра - Tengo una hermana
+У меня есть идея - Tengo una idea
+У меня есть вопрос - Tengo una pregunta
+У меня есть семья - Tengo una familia 
+У меня есть время - Tengo tiempo
+У меня проблема - Tengo un problema 
+
+Видеть - Ver
+Вижу - Veo
+Я вижу мужчину - Veo un hombre
+Я вижу женщину - Veo una mujer
+Я вижу машину - Veo un coche
+Я вижу эту машину - Veo este coche 
+Я вижу отель - Veo un hotel 
+Я вижу дом - Veo una casa
+
+
+Некоторые - Algunos / algunas
+Некоторые - Unos / unas
+У меня есть некоторые идеи - Tengo algunas ideas 
+У меня есть некоторые проблемы - Tengo algunos problemas
+У меня есть некоторые проблемы - Tengo unos problemas 
+У меня есть некоторые идеи - Tengo unas ideas
+Знать - Saber
+Много - Mucho
+Мало - Poco
+Много чего-то - Muchos / muchas
+Мало чего-то - Pocos / pocas
+Он знает много - Él sabe mucho
+Она знает мало - Ella sabe poco
+У меня много друзей - Tengo muchos amigos 
+У меня мало вопросов - Tengo pocas preguntas
+У меня мало ошибок - Tengo pocos errores 
+У меня много книг - Tengo muchos libres 
+У меня много времени - Tengo mucho tiempo
+У меня мало времени - Tengo poco tiempo
+
+Определённые артикли (ед. ч.) - El / la
+Определённые артикли (мн. ч.) - Los / las
+Мальчик очень талантливый - El chico es muy talentoso 
+Девочка очень ленивая - La chica es muy perezosa
+Книги интересные - Los libros son interesantes
+Видео очень смешное - El vídeo es muy divertido 
+Уроки очень полезные - Las lecciones son muy útiles
+Конференция очень скучная - La confirencia es muy aburrida 
+Результаты очень плохие - Los resultados son muy malos
+Результаты очень хорошие - Los resultados son muy buenos 
+Стол зелёный - La mesa es verde
+Стулья чёрные - Las sillas son negras
+Курс очень эффективный - El curso es muy efectivo
+Компьютер новый - La computadora es nueva
+Компьютер новый (исп.) - El ordenador es nuevo
+У меня есть книга. Книга очень интересная - Tengo un libro. El libro es muy  interesante
+Я вижу отель. Отель очень дорогой - Veo un hotel. El hotel es muy caro
+Это интересная идея - Es una idea interesante
+Эта идея очень интересная - Esta idea es muy interesante
+Это очень интересная идея - Es una idea muy interesante 
+Вопрос хороший - La pregunta es buena
+Отель дешёвый - El hotel es barato
+Этот отель очень дорогой - Este hotel es muy caro
+Это большая проблема - Es un gran problema
+Это хороший результат - Es un buen resultado
+Моя сестра очень талантливая - Mi hermana es muy talentosa
+Мой брат очень талантливый - Mi hermano es muy talentoso 
+
+Верить - Creer
+Я думаю что - Qreo que / opino que
+Parecer - Казаться
+Я думаю что это хорошо - Qreo que es bueno
+Я думаю что эта идея очень интересная - 
+Opino que esta idea es muy interesante 
+Мне кажется что это очень интересная идея - Me parece que es una idea muy interesante 
+Это место очень красивое - Este lugar es muy hermoso 
+Это красивое место - Es un lugar hermoso 
+Это очень красивое место - Es un lugar muy hermoso
+Я думаю что это очень красивое место - Qreo que es un lugar muy hermoso 
+Я думаю что мой результат очень хороший - Opino que mi resultado es muy bueno 
+Я думаю что мои результаты очень хорошие - Qreo que mis resultados son muy buenos 
+Мне кажется что это очень дорого - Me parece que es muy caro

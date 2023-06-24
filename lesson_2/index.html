@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Тренировка испанского языка</title>
+
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Урок 2</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Я", spanish: "Yo" },
+      { russian: "Yo - окончание?", spanish: "o" },
+      { russian: "Работать", spanish: "Trabajar" },
+      { russian: "Я работаю", spanish: "Trabajo" },
+      { russian: "Я работаю в этом месте", spanish: "Trabajo en este lugar" },
+      { russian: "Ты", spanish: "Tú" },
+      { russian: "Tú - окончание?", spanish: "as" },
+      { russian: "Ты работаешь очень хорошо", spanish: "Trabajas muy bien" },
+      { russian: "Он", spanish: "Él" },
+      { russian: "Она", spanish: "Ella" },
+      { russian: "Это", spanish: "Esto" },
+      { russian: "Вы (ед. вежл.)", spanish: "Usted" },
+      { russian: "Él, ella, esto, Usted - окончание?", spanish: "a" },
+      { russian: "Она работает лучше", spanish: "Ella trabaja mejor" },
+      { russian: "Он работает хуже", spanish: "Él trabaja peor" },
+      { russian: "Это работает", spanish: "Esto funciona" },
+      { russian: "Это не работает", spanish: "Esto no funciona" },
+      { russian: "Вы (ед. вежл.) работаете слишком много", spanish: "Usted trabaja demasiado" },
+      { russian: "Вы (ед. вежл.) работаете так много", spanish: "Usted trabaja tanto" },
+      { russian: "Мы", spanish: "Nosotros" },
+      { russian: "Nosotros - окончание?", spanish: "amos" },
+      { russian: "Мы работаем вместе", spanish: "trabajamos juntos" },
+      { russian: "Вы (мн.)", spanish: "Vosotros" },
+      { russian: "Вы (мн.) работаете так хорошо", spanish: "Trabajáis tan bien" },
+      { russian: "Они", spanish: "Ellos" },
+      { russian: "Они (жен.)", spanish: "Ellas" },
+      { russian: "Вы (мн. вежл.)", spanish: "Ustedes" },
+      { russian: "Они работают очень плохо", spanish: "Trabajan muy mal" },
+      { russian: "Вы (мн. вежл.) работаете очень хорошо", spanish: "Ustedes trabajan muy bien" },
+      { russian: "Они (жен.) танцуют профессионально", spanish: "Ellas bailan profesionalmente" },
+      { russian: "Yo - окончание?", spanish: "o" },
+      { russian: "Tú - окончание?", spanish: "as" },
+      { russian: "Él, ella, esto, Usted - окончание?", spanish: "a" },
+      { russian: "Nosotros - окончание?", spanish: "amos" },
+      { russian: "Vosotros - окончание?", spanish: "áis" },
+      { russian: "Ellos, ellas, ustedes - окончание?", spanish: "an" },
+      { russian: "Она танцует плохо", spanish: "Ella baila mal" },
+      { russian: "Любить", spanish: "Amar" },
+      { russian: "Я тебя люблю", spanish: "Te amo" },
+      { russian: "Я сильно тебя люблю", spanish: "Te amo mucho" },
+      { russian: "Хотеть / любить", spanish: "Querer" },
+      { russian: "Я сильно люблю тебя", spanish: "Te quiero mucho" },
+      { russian: "Я покупаю эту еду там", spanish: "Compro esta comida allí" },
+      { russian: "Преподавать", spanish: "Enseñar" },
+      { russian: "Она преподаёт английский", spanish: "Ella enseña inglés" },
+      { russian: "Он преподаёт испанский", spanish: "Él enseña español" },
+      { russian: "Путешествовать", spanish: "Viajar" },
+      { russian: "Он путешествует каждый год", spanish: "Él viaja todos los años / cada año" },
+      { russian: "Использовать / пользоваться", spanish: "Usar" },
+      { russian: "Я использую интернет каждый день", spanish: "Uso el internet todos los días" },
+      { russian: "Я пользуюсь интернетом почти что каждый день", spanish: "Uso el internet casi todos los días" },
+      { russian: "Изучать", spanish: "Aprender" },
+      { russian: "Yo - окончание?", spanish: "o" },
+      { russian: "Я изучаю английский онлайн", spanish: "Aprendo inglés online" },
+      { russian: "Tú - окончание?", spanish: "es" },
+      { russian: "Ты изучаешь испанский каждый день", spanish: "Aprendes español todos los días" },
+      { russian: "Él, ella, esto, usted - окончание?", spanish: "e" },
+      { russian: "Он изучает два иностранных языка", spanish: "El aprende dos lenguas extranjeras" },
+      { russian: "Она изучает английский", spanish: "Ella aprende inglés" },
+      { russian: "Зависеть от", spanish: "Depender de" },
+      { russian: "Это зависит от меня", spanish: "Esto depende de mí" },
+      { russian: "Вы (ед. вежл.) изучаете испанский с ним", spanish: "Usted aprende español con él" },
+      { russian: "Nosotros - окончание?", spanish: "emos" },
+      { russian: "Мы изучаем три иностранных языка", spanish: "Aprendemos tres lenguas extranjeras" },
+      { russian: "Vosotros - окончание?", spanish: "éis" },
+      { russian: "Вы (мн.) изучаете английский с этим преподавателем", spanish: "Aprendéis inglés con este profesor" },
+      { russian: "Ellos, ellas, ustedes - окончание?", spanish: "en" },
+      { russian: "Они изучают английский с этой преподавательницей", spanish: "Ellos aprenden inglés con esta profesora" },
+      { russian: "Они изучают много иностранных языков", spanish: "Ellos aprenden muchas lenguas extranjeras" },
+      { russian: "Вы (мн. вежл.) изучаете два иностранных языка", spanish: "Ustedes aprenden dos lenguas extranjeras" },
+      { russian: "Жить", spanish: "Vivir" },
+      { russian: "Yo - окончание?", spanish: "o" },
+      { russian: "Я живу в этом доме", spanish: "Vivo en esta casa" },
+      { russian: "Tú - окончание?", spanish: "es" },
+      { russian: "Ты живёшь очень хорошо", spanish: "Tú vives muy bien" },
+      { russian: "Él, ella, esto, usted - окончание?", spanish: "e" },
+      { russian: "Он живёт в этой квартире", spanish: "Él vive en este departamento" },
+      { russian: "Она живёт с ним", spanish: "Ella vive con él" },
+      { russian: "Вы (ед. вежл.) живёте в этой стране", spanish: "Usted vive en este país" },
+      { russian: "Существовать", spanish: "Existir" },
+      { russian: "Это существует", spanish: "Esto existe" },
+      { russian: "Это не существует", spanish: "Esto no existe" },
+      { russian: "Это действительно существует", spanish: "Esto realmente existe" },
+      { russian: "Nosotros - окончание?", spanish: "imos" },
+      { russian: "Мы живём вместе", spanish: "Vivimos juntos" },
+      { russian: "Vosotros - окончание?", spanish: "ìs" },
+      { russian: "Вы (мн.) живёте хорошо", spanish: "Vivís bien" },
+      { russian: "Ellos, ellas, ustedes - окончание?", spanish: "en" },
+      { russian: "Они живут заграницей", spanish: "Ellos viven en el extranjero" },
+      { russian: "Вы (мн. вежл.) живёте заграницей", spanish: "Ustedes viven en el extranjero" },
+      { russian: "Я отдыхаю с моей семьёй", spanish: "Descanso con mi familia" },
+      { russian: "Мы отдыхаем вместе", spanish: "Descansamos juntos" },
+      { russian: "Заканчивать", spanish: "Terminar" },
+      { russian: "Я заканчиваю свою работу рано", spanish: "Termino mi trabajo temprano" },
+      { russian: "Она заканчивает свою работу поздно", spanish: "Ella termina su trabajo tarde" },
+      { russian: "Нравится", spanish: "Gustar" },
+      { russian: "Мне нравится этот отель", spanish: "Me gusta este hotel" },
+      { russian: "Мне нравится этот курс", spanish: "Me gusta este curso" },
+      { russian: "Мне нравится этот урок", spanish: "Me gusta este lección" },
+      { russian: "Мне нравятся эти уроки", spanish: "Me gustan estas lecciones" }
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,103 @@
+Урок 5:
+
+Работать - Trabajar
+Изучать - Aprender
+Жить - Vivir
+
+Понимать - Entender
+Я понимаю - Yo entiendo 
+Ты понимаешь - Tú entiendes 
+Он понимает - Él entiende
+Мы понимаем - Nosotros entendemos
+Вы понимаете - Vosotros entendéis
+Они понимают - Ellos entienden 
+Я понимаю это лучше сейчас - Lo entiendo mejor ahora 
+Они понимают меня - Ellos me entienden 
+
+Думать - Pensar
+Я думаю что это очень важно - Penso que es muy importante
+
+Помнить - Recordar
+Я помню - Yo recuerdo
+Ты помнишь - Tú requerdas
+Он помнит - Él requerda
+Мы помним - Nosotros recordamos
+Вы помните - Vosotros recordáis
+Они помнят - Ellos recuerdan
+Я помню это - Lo recuerdo 
+Я не помню это - No lo requierdo
+Она помнит эти слова - Ella requerda estas palabras
+
+Стоить - Costar
+Возвращаться - Volver / regresar
+Я возвращаюсь домой очень поздно - Vuelvo a casa muy tarde
+Я возвращаюсь домой очень рано - 
+Vuelvo a casa muy temprano
+Мой компьютер стоит две тысячи долларов - Mi computadora cuesta dos mil dólares 
+Переводить - Traducir
+Я перевожу - Yo traduzco
+Ты переводишь - Tú traduces 
+Он переводит - Él traduce
+Мы переводим - Nosotros traducimos
+Вы переводите - Vosotros traducís
+Они переводят - Ellos traducen 
+Знать - Conocer 
+Я перевожу эти фразы - Traduzco estas frases
+Я знаю этого человека - Conozco a esta persona 
+Я знаю этих людей - Conozco a estas personas
+Знать себя - Conocerse
+Мы знаем друг друга - Nos conocemos
+Строить - Construir
+Разрушать - Destruir
+Я строю - Yo construyo
+Ты строишь - Tú construyes 
+Он строит - Él construye
+Мы строим - Nosotros construimos
+Вы строите - Vosotros construís 
+Они строят - Ellos construyen
+Он строит дом - Él construye una casa
+Они строят мост - Ellos construyen un puente
+Они разрушают эту деревню - Ellos destruyen este pueblo
+
+Делать - Hacer
+Я делаю - Yo hago
+Ты делаешь - Tú haces
+Он делает - El hace
+Мы делаем - Nosotros hacemos
+Вы делаете - Vosotros hacéis
+Они делают - Ellos hacen 
+
+Знать - Saber
+Я знаю - Lo sé
+Я не знаю - No lo sé
+Я знаю что это очень важно - Sé que es muy importante 
+
+Давать - Dar
+Даю - Doy
+Выходить - Salir
+Выхожу - Salgo
+Я даю это тебе - Te lo doy
+Я выхожу из дома - Salgo de casa
+Иметь - Tener
+Я имею - Yo tengo
+Ты имеешь - Tú tienes
+Он имеет - Él tiene
+Мы имеем - Nosotros tenemos
+Вы имеете - Vosotros tenéis
+Они имеют - Ellos tienen
+У него два вопроса - El tiene dos preguntas
+Сколько тебе лет - ¿Cuantos años tienes?
+Мне двадцать лет - Tengo veinte años
+
+Идти - Ir
+Я иду - Yo voy
+Ты идёшь - Tú vas
+Он идёт - Él va
+Мы идём - Nosotros vamos
+Вы идёте - Vosotros vais
+Они идут - Ellos van
+Я иду на работу - Voy al trabajo
+Я иду в школу - Voy a la escuela 
+Я иду в университет - Voy a la universidad 
+Я иду работать - Voy a trabajar
+Я иду на мою работу - Voy a mi trabajo

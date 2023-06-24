@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Тренировка испанского языка</title>
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Урок 6</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Работать", spanish: "Trabajar" },
+      { russian: "Я буду работать", spanish: "Yo trabajé" },
+      { russian: "Ты будешь работать", spanish: "Tú trabajarás" },
+      { russian: "Он будет работать", spanish: "Él trabajará" },
+      { russian: "Мы будем работать", spanish: "Nosotros trabajaremos" },
+      { russian: "Вы будете работать", spanish: "Vosotros trabajaréis" },
+      { russian: "Они будут работать", spanish: "Ellos trabaján" },
+      { russian: "Я буду работать больше", spanish: "Trabajaré más" },
+      { russian: "Ты будешь работать меньше", spanish: "Trabajarás menos" },
+      { russian: "Он будет работать намного больше", spanish: "Él trabajará mucho mas" },
+      { russian: "Мы будем работать вместе", spanish: "Nosotros trabajaremos juntos" },
+      { russian: "Вы будете работать в этом месте", spanish: "Trabajaréis en este lugar" },
+      { russian: "Они будут работать более профессионально", spanish: "Trabaján más profesionalmente" },
+      { russian: "Я посещу Испанию в следующем году", spanish: "Visitaré España el año que viene / el próximo año" },
+      { russian: "Я посещу Соединённые Штаты в следующем месяце", spanish: "Visitaré los Estados Unidos el mes que viene / el próximo mes" },
+      { russian: "Я буду там завтра", spanish: "Estaré allí mañana" },
+      { russian: "Завтра у меня будет свободное время", spanish: "Mañana tendré tiempo libre" },
+      { russian: "У тебя будет эта возможность", spanish: "Tendrás esta oportunidad" },
+      { russian: "Я сделаю это", spanish: "Lo are" },
+      { russian: "Я сделаю это для тебя", spanish: "Lo aré por ti" },
+      { russian: "Ты увидишь это потом", spanish: "Lo verás después" },
+      { russian: "Мы увидим это скоро", spanish: "Lo veremos pronto" },
+      { russian: "Я закончу это в этом году", spanish: "Lo terminaré este año" },
+      { russian: "Простое настоящее время", spanish: "Presente de indicativo" },
+      { russian: "Я часто делаю это", spanish: "Lo ago a menudo" },
+      { russian: "Просто будущее время", spanish: "Futuro simple" },
+      { russian: "Я поеду в эту страну скоро", spanish: "Iré a este país pronto" },
+      { russian: "Я думаю что поеду в Испанию в следующем году", spanish: "Creo que iré a España el año que viene / el próximo año" },
+      { russian: "Простое прошедшее время", spanish: "Pretérito indefinido" },
+      { russian: "Вчера", spanish: "Ayer" },
+      { russian: "Позавчера", spanish: "Anteayer" },
+      { russian: "В прошлом году", spanish: "El año pasado" },
+      { russian: "На прошлой неделе", spanish: "La semana pasada" },
+      { russian: "В прошлом месяце", spanish: "El mes pasado" },
+      { russian: "Я говорил", spanish: "Yo hablé" },
+      { russian: "Ты говорил", spanish: "Tú hablaste" },
+      { russian: "Он говорил", spanish: "Él habló" },
+      { russian: "Мы говорили", spanish: "Nosotros hablamos" },
+      { russian: "Вы говорили", spanish: "Vosotros hablasteis" },
+      { russian: "Они говорили", spanish: "Ellos hablaron" },
+      { russian: "Я говорил с ним", spanish: "Hablé con él" },
+      { russian: "Мы говорили по испански вчера", spanish: "Hablamos español ayer" },
+      { russian: "Они говорили так быстро", spanish: "Ellos hablaron tan rápido" },
+      { russian: "Мой друг купил машину в прошлом месяце", spanish: "Mi amigo compró un coche el mes pasado" },
+      { russian: "Я выучил / я изучал", spanish: "Yo aprendí" },
+      { russian: "Ты выучил", spanish: "Tú aprendiste" },
+      { russian: "Он выучил", spanish: "Él aprendió" },
+      { russian: "Мы выучили", spanish: "Nosotros aprendimos" },
+      { russian: "Вы выучили", spanish: "Vosotros aprendisteis" },
+      { russian: "Они выучили", spanish: "Ellos aprendieron" },
+      { russian: "Я выучил испанский в прошлом году", spanish: "Aprendí español el año pasado" },
+      { russian: "Они изучали испанский заграницей", spanish: "Ellos aprendieron español en el extranjero" },
+      { russian: "Я выучил эти слова", spanish: "Aprendí estás palabras" },
+      { russian: "Он продал свою машину", spanish: "Él vendió su coche" },
+      { russian: "Они продали свой дом", spanish: "Ellos vendieron su casa" },
+      { russian: "Я жил", spanish: "Yo viví" },
+      { russian: "Ты жил", spanish: "Tú viviste" },
+      { russian: "Он жил", spanish: "Él vivió" },
+      { russian: "Мы жили", spanish: "Nosotros vivimos" },
+      { russian: "Вы жили", spanish: "Vosotros vivisteis" },
+      { russian: "Они жили", spanish: "Ellos vivieron" },
+      { russian: "Я жил в Испании в прошлом году", spanish: "Viví en España el año pasado" },
+      { russian: "Мы жили в этом городе", spanish: "Vivimos en esta ciudad" },
+      { russian: "Они жили в Латинской Америке два года назад", spanish: "Ellos vivieron en América Latino hace dos años" },
+      { russian: "Идти / ехать", spanish: "Ir" }, 
+      { russian: "Я пошёл туда", spanish: "Fui allí" },
+      { russian: "Я пошёл в это место", spanish: "Fuí a este lugar" },
+      { russian: "Иметь", spanish: "Tener" },
+      { russian: "У меня были некоторые ошибки", spanish: "Tuve algunos errores" },
+      { russian: "Я не ходил туда", spanish: "No fuí allí" },
+      { russian: "Ты ходил туда вчера?", spanish: "¿Fuiste allí ayer?" }
+
+      // { russian: "", spanish: "" },
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

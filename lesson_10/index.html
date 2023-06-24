@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Тренировка испанского языка</title>
+
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Урок 10</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Простое настоящее время", spanish: "Presente de indicativo" },
+      { russian: "Я делаю это когда у меня есть свободное время", spanish: "Lo hago cuando tengo tiempo libre" },
+      { russian: "Простое будущее время", spanish: "Futuro simple" },
+      { russian: "Я буду там завтра", spanish: "Estaré allí mañana" },
+      { russian: "Простое прошедшее время", spanish: "Pretérito indefinido" },
+      { russian: "Я решил изучать испанский", spanish: "Decidí aprender español" },
+      { russian: "Прошедшее длительное время (или происходило периодически)", spanish: "Pretérito imperfecto" },
+      { russian: "Я часто ходил туда со своими друзьями", spanish: "A menudo iba allí con mis amigos" },
+      { russian: "Настоящее совершенное время", spanish: "Pretérito perfecto" },
+      { russian: "Я никогда не был в Англии", spanish: "Nunca he estado en Inglaterra" },
+      { russian: "Будущее совершенное время", spanish: "Futuro perfecto" },
+      { russian: "Они уедут к завтрашнему", spanish: "Se habrán ido para mañana" },
+      { russian: "Давно прошедшее время (предпрошедшее время)", spanish: "Pretérito pluscuamperfecto" },
+      { russian: "Я уже поговорил с ним перед тем как поговорить с ней", spanish: "Ya había con él antes de hablar con ella" },
+      { russian: "Он сказал, что понимает это", spanish: "Él dijo que lo entendía" },
+      { russian: "Он сказал мне что уже понял это", spanish: "Él me dijo que lo había entendido" },
+      { russian: "Мы идём на рынок", spanish: "Vamos al mercado" },
+      { russian: "Мы играли в футбол каждый день", spanish: "Jugaba al fútbol todos los días" },
+      { russian: "Я вернулся домой, поужинал и в десять вечера лёг спать", spanish: "Regresé a casa, cené y a las diez de la noche me acosté" },
+      { russian: "Он хочет чтобы я написал письмо", spanish: "Él quiere yo escriba una carta" },
+      { russian: "Я сомневаюсь, что он говорит по китайски", spanish: "Dudo que él hablo chino" },
+      { russian: "Это возможно, что пойдёт дождь", spanish: "Es posible que llueva" },
+      { russian: "Когда я закончу заниматься, я посмотрю это видео", spanish: "Cuando termine de estudiar, veré este vídeo" },
+      { russian: "Прошлой ночью я не мог заснуть", spanish: "Anoche no pude dormir" },
+      { russian: "В прошлом месяце мы были в Испании", spanish: "El mes pasado estuvimos en España" },
+      { russian: "Вчера я ходил на пляж", spanish: "Ayer fuí a la playa" },
+      { russian: "Я ходил на пляж сегодня", spanish: "He ido a la playa hoy" },
+      { russian: "Мы были в Испании в прошлом году", spanish: "Estuvimos en España el año pasado" },
+      { russian: "Я был в Испании два раза", spanish: "He estado en España dos veces" },
+      { russian: "Я посетил Испанию дважды", spanish: "He visitado España dos veces" },
+      { russian: "Я читал эту книгу вчера", spanish: "Leí este libro ayer" },
+      { russian: "Я читал эту книгу сегодня", spanish: "He leído este libro hoy" },
+      { russian: "Я показал ему это видео, но он сказал мне, что уже смотре его", spanish: "Le mostré este vídeo pero me dijo que ya lo había visto" },
+      { russian: "Я надеюсь что ты всё понял", spanish: "Espero que hayas entendido todo" },
+      { russian: "Я надеюсь что ты выучишь испанский язык очень скоро", spanish: "Espero que aprendas la lengua española muy pronto" },
+      { russian: "Я надеюсь что ты выучишь испанский очень скоро", spanish: "Espero que aprendas español muy pronto" }
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

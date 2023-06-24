@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Тренировка испанского языка</title>
+
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Урок 9</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Subjunctive", spanish: "Сослагательное наклонение" },
+      { russian: "Если ты мне поможешь, это будет прекрасно", spanish: "Si me ayudes, será maravilloso" },
+      { russian: "Я сделаю это, когда у меня будет время", spanish: "Lo haré cuando tenga tiempo" },
+      { russian: "Когда у меня будет больше денег, я куплю это", spanish: "Cuando tenga más dinero lo compraré" },
+      { russian: "Говорить", spanish: "Hablar" },
+      { russian: "Я скажу", spanish: "Yo hable" },
+      { russian: "Ты скажешь", spanish: "Tú hablen" },
+      { russian: "Он скажет", spanish: "Él hable" },
+      { russian: "Мы скажем", spanish: "Nosotros hablemos" },
+      { russian: "Вы (мн.) скажете", spanish: "Vosotros habléis" },
+      { russian: "Они скажут", spanish: "Ellos hablen" },
+      { russian: "Есть", spanish: "Comer" },
+      { russian: "Я поем", spanish: "Yo coma" },
+      { russian: "Ты поешь", spanish: "Tú comas" },
+      { russian: "Он поест", spanish: "Él coma" },
+      { russian: "Мы поедим", spanish: "Nosotros comamos" },
+      { russian: "Вы (ед.) поедите", spanish: "Ellos coman" },
+      { russian: "Жить", spanish: "Vivir" },
+      { russian: "Я буду жить", spanish: "Yo viva" },
+      { russian: "Ты будешь жить", spanish: "Tú vivas" },
+      { russian: "Он будет жить", spanish: "Él viva" },
+      { russian: "Мы будем жить", spanish: "Nosotros vivamos" },
+      { russian: "Вы (ед.) будете жить", spanish: "Ellos vivan" },
+      { russian: "Возможно", spanish: "Quizas" },
+      { russian: "Возможно пойдёт дождь сегодня", spanish: "¡Quezas llueva hoy!" },
+      { russian: "Сомневаться", spanish: "Dudar" },
+      { russian: "Я сомневаюсь, что он сделает это", spanish: "Dudo que él lo haga" },
+      { russian: "Чтобы ты имел удачу (удачи тебе)", spanish: "Que tengas suerte" },
+      { russian: "Чтобы ты поправился ( поправляйся)", spanish: "Que te mejores" },
+      { russian: "Мне нужно чтобы ты сделал это", spanish: "Necesito que lo hagas" },
+      { russian: "Возможно, что она живёт здесь", spanish: "Es posible que ella viva aquí" },
+      { russian: "Я не думаю, что я пойду на вечеринку", spanish: "No creo que vaya a la fiesta" },
+      { russian: "Очень жаль, что ты не можешь прийти", spanish: "Es una pena que no puedas venir" },
+      { russian: "Советовать", spanish: "Aconsejar" },
+      { russian: "Я тебе советую, чтобы ты занимался больше", spanish: "Te aconsejo que estudies más" },
+      { russian: "Я не думаю, что это лучшее решение", spanish: "No creo que sea la mejor solución" },
+      { russian: "Я сомневаюсь, что он может прийти", spanish: "Dudo que él pueda venir" },
+      { russian: "Прошедшее совершенное в сослагательном наклонении", spanish: "Pretérito perfecto en subjunctive" },
+      { russian: "Форма образования", spanish: "(haya) + ... ado + ido + ido" },
+      { russian: "Я купил", spanish: "Yo haya comprado" },
+      { russian: "Ты купил", spanish: "Tú hayas comprado" },
+      { russian: "Он купил", spanish: "Él haya comprado" },
+      { russian: "Мы купили", spanish: "Nosotros hayamos comprado" },
+      { russian: "Вы (мн.) купили", spanish: "Vosotros hayáis comprado" },
+      { russian: "Они купили", spanish: "Ellos hayan comprado" },
+      { russian: "Я не думаю, что этот магазин закрылся", spanish: "No creo que esta tienda se haya cerrado ya" },
+      { russian: "Симнительно что он нашёл работу", spanish: "Es dudoso que él haya encontrado un trabajo" },
+      { russian: "Возможно, что я это сделал лучше", spanish: "Es posible que lo haya hecho mejor" },
+      { russian: "Я ожидаю что ты всё понял", spanish: "Espero que hayas entendido todo" },
+      { russian: "Повелительное наклонение", spanish: "Modo imperativo" },
+      { russian: "Говори", spanish: "Tú habla" },
+      { russian: "Учись", spanish: "Tú aprende" },
+      { russian: "Живи", spanish: "Vive" },
+      { russian: "Говорите (ед. вежл.)", spanish: "Usted hable" },
+      { russian: "Учи́те (ед. вежл.)", spanish: "Usted aprenda" },
+      { russian: "Живи́те (ед. вежл.)", spanish: "Usted viva" },
+      { russian: "Возвращайся", spanish: "¡Vuelve!" },
+      { russian: "Возвращайся", spanish: "¡Regresa!" },
+      { russian: "Открой дверь", spanish: "¡Abre la puerta!" },
+      { russian: "Закрой дверь", spanish: "¡Cierra la puerta!" },
+      { russian: "Скажи мне это", spanish: "¡Dímelo!" },
+      { russian: "Скажи мне эту вещь", spanish: "¡Dime esta cosa!" },
+      { russian: "Скажи мне всю правду", spanish: "¡Dime toda la verdad!" },
+      { russian: "Я хочу говорить по испански не думая", spanish: "Quiero hablar español sin pensar" },
+      { russian: "Я могу сделать это", spanish: "Puedo hacer esto / puedo hacerlo / lo puedo hacer" }
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

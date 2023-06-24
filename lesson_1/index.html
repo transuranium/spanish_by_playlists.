@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Тренировка испанского языка</title>
+
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Урок 1</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Я говорю по испански", spanish: "Hablo español" },
+      { russian: "Я говорю по английски", spanish: "Hablo inglés" },
+      { russian: "Я говорю по английски и по испански", spanish: "Hablo inglés y español" },
+      { russian: "Я говорю по испански и по английски", spanish: "Hablo español e inglés" },
+      { russian: "Я говорю немного по испански", spanish: "Hablo un poco de español" },
+      { russian: "Я говорю немного по английски", spanish: "Hablo un poco de inglés" },
+      { russian: "Я говорю по русски", spanish: "Hablo ruso" },
+      { russian: "Я говорю по русски, по испански и по английски", spanish: "Hablo ruso, español e inglés" },
+      { russian: "Я могу говорить по испански", spanish: "Puedo hablar español" },
+      { russian: "Я могу говорить немного по испански", spanish: "Puedo hablar un poco de español" },
+      { russian: "Я работаю здесь", spanish: "Trabajo aquí" },
+      { russian: "Я работаю много", spanish: "Trabajo mucho" },
+      { russian: "Я работаю мало", spanish: "Trabajo poco" },
+      { russian: "Я учусь", spanish: "Estudio" },
+      { russian: "Я учусь много", spanish: "Estudio mucho" },
+      { russian: "Я учусь мало", spanish: "Estudio poco" },
+      { russian: "Я учусь здесь", spanish: "Estudio aquí" },
+      { russian: "Я работаю и учусь", spanish: "Trabajo y estudio" },
+      { russian: "Я учусь и работаю", spanish: "Estudio y trabajo" },
+      { russian: "Я учусь и работаю одновременно", spanish: "Estudio y trabajo al mismo tiempo" },
+      { russian: "Я работаю и учусь одновременно", spanish: "Trabajo y estudio al mismo tiempo" },
+      { russian: "Я изучаю испанский", spanish: "Aprendo español" },
+      { russian: "Я изучаю испанский онлайн", spanish: "Aprendo español online / en línea" },
+      { russian: "Я изучаю испанский здесь", spanish: "Aprendo español aquí" },
+      { russian: "Я живу в России", spanish: "Vivo en Rusia" },
+      { russian: "Я живу здесь", spanish: "Vivo aquí" },
+      { russian: "Я живу в этом городе", spanish: "Vivo en esta ciudad" },
+      { russian: "Я живу в этой стране", spanish: "Vivo en este país" },
+      { russian: "Мне нравится Испания", spanish: "Me gusta España" },
+      { russian: "Мне нравится этот язык", spanish: "Me gusta este idioma / esta lengua" },
+      { russian: "Мне нравится путешествовать", spanish: "Me gusta viajar" },
+      { russian: "Мне нравится этот город", spanish: "Me gusta esta ciudad" },
+      { russian: "Мне нравится изучать испанский", spanish: "Me gusta aprender español" },
+      { russian: "Мне очень нравятся говорить по испански", spanish: "Me gusta mucho hablar español" },
+      { russian: "Мне очень нравятся Испания", spanish: "Me gusta mucho España" },
+      { russian: "Мне очень нравятся эта культура", spanish: "Me gusta mucho esta cultura" },
+      { russian: "Я хочу говорить по испански", spanish: "Quiero hablar español" },
+      { russian: "Я хочу посетить Испанию", spanish: "Quiero visitar España" },
+      { russian: "Я хочу посетить эту страну", spanish: "Quiero visitar este país" },
+      { russian: "Я хочу посетить этот город", spanish: "Quiero visitar esta ciudad" },
+      { russian: "Я хочу свободно говорить по испански", spanish: "Quiero hablar español fluidamente / con fluidez / con soltura" },
+      { russian: "Я хочу говорить по испански правильно", spanish: "Quiero hablar español correctamente" },
+      { russian: "Я хочу говорить по испански свободно и правильно", spanish: "Quiero hablar español fluidamente y correctamente" },
+      { russian: "Я хочу жить здесь", spanish: "Quiero vivir aquí" },
+      { russian: "Я хочу жить в этой стране", spanish: "Quiero vivir en este país" },
+      { russian: "Я хочу жить в этом городе", spanish: "Quiero vivir en esta ciudad" },
+      { russian: "Я хочу понимать других людей, которые говорят по испански", spanish: "Quiero entender a otras personas que hablan español" },
+      { russian: "Я хочу понимать других людей, которые знают испанский", spanish: "Quiero entender a otras personas que saben español" },
+      { russian: "Я хочу общаться с другими людьми, которые говорят по испански", spanish: "Quiero comunicarme con otras personas que hablan español" },
+      { russian: "Я хочу общаться с другими людьми, которые знают испанский", spanish: "Quiero comunicarme con otras personas que saben español" },
+      { russian: "Я хочу общаться с другими людьми, которые живут в Испании", spanish: "Quiero comunicarme con otras personas que viven en España" },
+      { russian: "Я хочу купить эту вещь", spanish: "Quiero comprar esta cosa" },
+      { russian: "Спасибо", spanish: "¡Gracias!" },
+      { russian: "Спасибо большое", spanish: "¡Muchas gracias!" },
+      { russian: "Огромнейшее спасибо, друзья", spanish: "¡Muchísimas gracias, amigos!" }
+
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

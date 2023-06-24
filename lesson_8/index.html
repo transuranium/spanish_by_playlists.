@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Тренировка испанского языка</title>
+
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Урок 8</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Настоящее совершенное время / ближайшее прошедшее время", spanish: "Pretérito perfecto de indicativo" },
+      { russian: "Форма образования", spanish: "Haber + ... ado / ido / ido" },
+      { russian: "Покупать", spanish: "Comprar" },
+      { russian: "Я купил", spanish: "Yo he comprado" },
+      { russian: "Ты купил", spanish: "Tú has comprado" },
+      { russian: "Он купил", spanish: "El ha comprado" },
+      { russian: "Мы купили", spanish: "Nosotros hemos comprado" },
+      { russian: "Вы купили", spanish: "Vosotros habéis comprado" },
+      { russian: "Они купили", spanish: "Ellos han comprado" },
+      { russian: "На этой неделе", spanish: "Esta semana" },
+      { russian: "В этом месяце", spanish: "Este mes" },
+      { russian: "В этом году", spanish: "Este año" },
+      { russian: "Сегодня утром", spanish: "Esta mañana" },
+      { russian: "В этом веке", spanish: "Este siglo" },
+      { russian: "Сегодня", spanish: "Hoy" },
+      { russian: "Уже", spanish: "Ya" },
+      { russian: "Ещё не", spanish: "Todavía no" },
+      { russian: "Никогда", spanish: "Nunca" },
+      { russian: "Он купил машину на этой неделе", spanish: "Él ha comprado un coche esta semana" },
+      { russian: "Я начал изучать испанский в этом году", spanish: "He empezado a aprender español este año" },
+      { russian: "Я проснулся очень рано сегодня", spanish: "Me he despertado muy temprano hoy" },
+      { russian: "Сегодня я встал в семь", spanish: "Hoy me he levantado a las siete" },
+      { russian: "У меня было много работы на этой неделе", spanish: "He tenido mucho trabajo esta semana" },
+      { russian: "Я уже добрался до пляжа", spanish: "Ya he llegado a la playa" },
+      { russian: "Я никогда не путешествовал на самолёте", spanish: "Nunca he viajado en avión" },
+      { russian: "Я ещё не добрался до пляжа", spanish: "Todavía no he llegado a la playa" },
+      { russian: "Я уже купил эту вещь", spanish: "Ya he comprado esta cosa" },
+      { russian: "Я ещё не купил эту вещь", spanish: "Todavía no he comprado esta cosa" },
+      { russian: "Я ещё не написал это сообщение", spanish: "Todavía no he escrito este mensaje" },
+      { russian: "Я уже прочёл твоё письмо", spanish: "Ya he leído tu carta" },
+      { russian: "Будущее совершенное время", spanish: "Futuro perfecto" },
+      { russian: "Форма образования", spanish: "Haber + ... ado / ido / ido" },
+      { russian: "Я скажу", spanish: "Yo habré hablado" },
+      { russian: "Ты скажешь", spanish: "Tú  habrás hablado" },
+      { russian: "Он скажет", spanish: "Él habrá hablado" },
+      { russian: "Мы скажем", spanish: "Nosotros habremos hablado" },
+      { russian: "Вы (мн.) скажете", spanish: "Vosotros habréis hablado" },
+      { russian: "Они скажут", spanish: "Ellos habrán hablando" },
+      { russian: "Заканчивать", spanish: "Terminar" },
+      { russian: "Я закончу это к завтрашнему", spanish: "Lo habré terminado para mañana" },
+      { russian: "Я закончу свою работу к декабрю", spanish: "Habré terminado mi trabajo para diciembre" },
+      { russian: "Я закончу эту работу к завтрашнему", spanish: "Habré terminado este trabajo para mañana" },
+      { russian: "Я поем перед тем как уйти", spanish: "Habré comido antes de salir" },
+      { russian: "Ты уже закончишь в восьми?", spanish: "¿Ya habrás terminado para a las ocho?" },
+      { russian: "Я поговорю с ним к пяти", spanish: "Habré hablando con él para las cinco" },
+      { russian: "Предпрошедшее время / Давно прошедшее время", spanish: "Pretérito pluscuamperfecto" },
+      { russian: "Форма образования", spanish: "Haber ... ado / ido / ido" },
+      { russian: "Я работал", spanish: "Yo había trabajado" },
+      { russian: "Ты работал", spanish: "Tú habías trabajando" },
+      { russian: "Он работал", spanish: "Él había trabajado" },
+      { russian: "Мы работали", spanish: "Nosotros habíamos trabajado" },
+      { russian: "Вы работали", spanish: "Vosotros habíais trabajado" },
+      { russian: "Они работали", spanish: "Ellos habían trabajado" },
+      { russian: "Сказать", spanish: "Decir" },
+      { russian: "Произошло", spanish: "Pasar" },
+      { russian: "Я сказал ему что это уже произошло", spanish: "Le dije que esto ya había pasado" },
+      { russian: "Я знал, что я совершил ошибку", spanish: "Sabía que había cometido un error" },
+      { russian: "Когда он вернулся домой, я уже сделал это", spanish: "Cuando él llegó a cas, ya lo había hecho" },
+      { russian: "Когда он вернулся, я уже закончил свою работу", spanish: "Cuando él regresó, ya había terminado mi trabajo" },
+      { russian: "Когда она позвонила мне, я уже поел", spanish: "Cuando ella me llamó, ya había comido" }
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,89 @@
+Урок 3
+
+Понимать - Entender 
+Я понимаю - Entiendo 
+Я понимаю это - Lo entiendo
+Я не понимаю это - No lo entiendo
+Я понимаю тебя - Te entiendo
+Я не понимаю тебя - No te entiendo
+Я понимаю тебя очень хорошо - Te entiendo muy bien
+Я понимаю это очень хорошо - Lo entiendo muy bien
+Я хочу это - Lo quiero
+
+Быть - Ser 
+Yo - форма? - Soy
+Tú - форма? - Eres
+Él, ella, esto, usted - форма? - Es
+Nosotros - форма? - Somos 
+Vosotros - форма? - Sois
+Ellos, ellas, ustedes - форма? - Son
+Он хочет быть богатым - Él quiere ser rico
+Я студент - Soy estudiante 
+Ты очень трудолюбивый - Eres muy trabajador
+Ты очень трудолюбивая - Eres muy trabajadora
+
+Это лучше - Es mejor
+Это хуже - Es peor
+
+Мы студенты - Somos estudiantes
+Вы очень талантливые - Sois muy talentosos
+Они мои друзья - Ellos son mis amigos
+Он мой друг - Él es mi amigo 
+Она моя подруга - Ella es mi amiga
+Они мои друзья - Ellos son mis amigos 
+
+Быть / находиться - Estar 
+Yo - форма? - Estoy
+Tú - форма? - Estás
+Él, ella, esto, usted - форма? - Está 
+Nosotros - форма? - Estamos 
+Vosotros - форма? - Estáis 
+Ellos, ellas, ustedes - форма? - Están 
+Я хочу быть дома - Quiero estar en casa 
+Я дома - Estoy en casa
+Ты на работе - Estás en el trabajo 
+Она счастлива сейчас - Ella está feliz ahora
+Она счастлива - Ella es feliz
+Мы дома - Estamos en casa
+Вы (мн.) в России - Estáis en Rusia
+Они в Испании - Ellos están en España
+Я в России - Estoy en Rusia
+
+Это важно - Es importante 
+Это очень важно - Es muy interesante
+Это так важно - Es tan importante
+Это легко - Es fácil
+Это сложно - Es difícil
+Это слишком легко - Es demasiado fácil
+Это слишком сложно - Es demasiado difícil 
+Это очень интересно - Es muy interesante
+Это очень интересно для меня - Es muy interesante para mí
+Это гениально - Es genial
+Это возможно - Es posible
+Это невозможно - Es imposible / no es posible
+Это очень плохо - Es muy malo 
+Это очень хорошо - Es muy bueno
+Это эффективно - Es efectivo
+Это очень эффективно - Es muy efectivo
+Это курс очень эффективен - Este curso es muy efectivo
+Этот отель очень хороший - Este hotel es muy muy bueno 
+Этот мужчина очень богатый - Este hombre es muy rico
+Это еда очень вкусная - Esta comida es muy sabrosa 
+Эти уроки очень информативные - Estás lecciones son muy informativas 
+Эта ошибка очень большая - Este error es muy grande 
+Эти ошибки не большие - Estos errores no son grandes
+Это проблема маленькая - Este problema es pequeño 
+Эти проблемы не такие большие - Estos problemas no son tan grandes 
+Он не здесь - Él no está aquí 
+Она не там - Ella no está allí
+Откуда ты? - ¿De dónde eres?
+Я из России - Soy de Rusia
+Я из Испании - Soy de España 
+Я русский - Soy ruso
+Я испанский - Soy español
+Я русская - Soy rusa
+Я обожаю Испанию - Me encanta España
+Я обожаю свою работу - Me encanta mi trabajo
+Я обожаю путешествовать - Me encanta viajar 
+Я обожаю эту культуру - Me encanta esta cultura 
+Я обожаю эти уроки - Me encantan estas lecciones

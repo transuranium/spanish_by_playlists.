@@ -1,0 +1,62 @@
+Урок 1:
+
+Я говорю по испански - Hablo español
+Я говорю по английски - Hablo inglés
+Я говорю по английски и по испански - Hablo inglés y español
+Я говорю по испански и по английски - Hablo español e inglés 
+Я говорю немного по испански - Hablo un poco de español
+Я говорю немного по английски - Hablo un poco de inglés
+Я говорю по русски - Hablo ruso
+Я говорю по русски, по испански и по английски - Hablo ruso, español e inglés
+Я могу говорить по испански - Puedo hablar español
+Я могу говорить немного по испански - Puedo hablar un poco de español
+Я работаю здесь - Trabajo aquí 
+Я работаю много - Trabajo mucho
+Я работаю мало - Trabajo poco
+Я учусь - Estudio
+Я учусь много - Estudio mucho
+Я учусь мало - Estudio poco
+Я учусь здесь - Estudio aquí
+Я работаю и учусь - Trabajo y estudio 
+Я учусь и работаю - Estudio y trabajo
+Я учусь и работаю одновременно - Estudio y trabajo al mismo tiempo 
+Я работаю и учусь одновременно - Trabajo y estudio al mismo tiempo 
+Я изучаю испанский - Aprendo español 
+Я изучаю испанский онлайн - Aprendo español online / en línea
+Я изучаю испанский здесь - Aprendo español aquí 
+Я живу в России - Vivo en Rusia
+Я живу здесь - Vivo aquí
+Я живу в этом городе - Vivo en esta ciudad
+Я живу в этой стране - Vivo en este país
+
+Мне нравится Испания - Me gusta España
+Мне нравится этот язык - Me gusta este idioma / esta lengua
+Мне нравится путешествовать - Me gusta viajar
+Мне нравится эта страна - Me gusta este país 
+Мне нравится этот город - Me gusta esta ciudad 
+Мне нравится изучать испанский - Me gusta aprender español 
+Мне очень нравятся говорить по испански - Me gusta mucho hablar español
+Мне очень нравятся Испания - Me gusta mucho España 
+Мне очень нравятся эта культура - Me gusta mucho esta cultura 
+
+Я хочу говорить по испански - Quiero hablar español 
+Я хочу посетить Испанию - Quiero visitar España 
+Я хочу посетить эту страну - Quiero visitar este país 
+Я хочу посетить этот город - Quiero visitar esta ciudad
+Я хочу свободно говорить по испански - Quiero hablar español fluidamente / con fluidez / con soltura
+Я хочу говорить по испански правильно - Quiero hablar español correctamente
+Я хочу говорить по испански свободно и правильно - Quiero hablar español fluidamente y correctamente 
+
+Я хочу жить здесь - Quiero vivir aquí 
+Я хочу жить в этой стране - Quiero vivir en este país
+Я хочу жить в этом городе - Quiero vivir en esta ciudad
+Я хочу понимать других людей, которые говорят по испански - Quiero entender a otras personas que hablan español
+Я хочу понимать других людей, которые знают испанский - Quiero entender a otras personas que saben español / entender
+Я хочу общаться с другими людьми, которые говорят по испански - Quiero comunicae con otras personas que hablan español
+Я хочу общаться с другими людьми, которые знают испанский - Quiero comunicarme con otras personas que saben español 
+Я хочу общаться с другими людьми, которые живут в Испании - Quiero comunicarme con otras personas que viven en España 
+Я хочу купить эту вещь - Quiero comprar esta cosa
+
+Спасибо - ¡Gracias!
+Спасибо большое - ¡Muchas gracias!
+Огромнейшее спасибо, друзья - ¡Muchísimas gracias, amigos!

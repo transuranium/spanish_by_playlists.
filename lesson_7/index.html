@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Тренировка испанского языка</title>
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Урок 7</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Я разговариваю со своим другом сейчас", spanish: "Estoy hablando con mi amigo" },
+      { russian: "Мы разговариваем по телефону сейчас", spanish: "Estoy hablando por teléfono" },
+      { russian: "Пить", spanish: "Beber" },    
+      { russian: "Я пью стакан воды сейчас", spanish: "Estoy bebiendo un vaso de agua" },
+      { russian: "Ждать", spanish: "Esperar" },    
+      { russian: "Я жду сейчас", spanish: "Estoy esperando" },
+      { russian: "Он ждёт сейчас", spanish: "El está esperando" },
+      { russian: "Я жду твоего ответа сейчас", spanish: "Estoy esperando tu respuesta" },
+      { russian: "Читать", spanish: "Leer" },      
+      { russian: "Я читаю эту статью сейчас", spanish: "Estoy leyendo  este artículo" },
+      { russian: "Я работаю в настоящий момент", spanish: "Estoy trabajando en esto momento" },
+      { russian: "Что ты делаешь сейчас?", spanish: "¿Qué estás haciendo?" },
+      { russian: "Что ты ешь сейчас?", spanish: "¿Qué estás comiendo?" },
+      { russian: "Что ты читаешь сейчас?", spanish: "¿Qué estás leyendo?" },
+      { russian: "Я слушаю эти уроки делая другие вещи", spanish: "Escucho estas lecciones haciendo otras cosas" },
+      { russian: "Я делаю это разговаривая по телефону", spanish: "Lo hago hablando por teléfono" },
+      { russian: "Я зарабатываю хорошие деньги работая там", spanish: "Gano buen dinero trabajando allí" },
+      { russian: "Ты можешь зарабатывать деньги работая здесь", spanish: "Puedes ganar mucho dinero trabajando aquí" },
+      { russian: "Говорить", spanish: "Hablar" },
+      { russian: "Я говорил", spanish: "Yo hablaba" },
+      { russian: "Ты говорил", spanish: "Tú hablabas" },
+      { russian: "Он говорил", spanish: "Él hablaba" },
+      { russian: "Мы говорили", spanish: "Nosotros hablábamos" },
+      { russian: "Вы говорили / разговаривали", spanish: "Vosotros hablabais" },
+      { russian: "Они говорили", spanish: "Ellos hablaban" },
+      { russian: "Он посмотрел фильм вчера", spanish: "Él miro la película ayer" },
+      { russian: "В то время как он смотрел фильм, я разговаривал по телефону", spanish: "Mientras él miraba la película, yo hablaba por teléfono" },
+      { russian: "Я изучал", spanish: "Yo aprendía" },
+      { russian: "Ты изучал", spanish: "Tú aprendías" },
+      { russian: "Он изучал", spanish: "Él aprendía" },
+      { russian: "Мы изучали", spanish: "Nosotros aprendimos" },
+      { russian: "Вы изучали", spanish: "Vosotros aprendíais" },
+      { russian: "Они изучали", spanish: "Ellos aprendían" },
+      { russian: "Я изучал английский. Время проходило очень быстро", spanish: "Aprendía inglés. El tiempo pasaba muy rápido." },
+      { russian: "Я делал много упражнений", spanish: "Hacía muchos ejercicios" },
+      { russian: "Жить", spanish: "Vivir" },
+      { russian: "Я жил", spanish: "Yo vivía" },
+      { russian: "Ты жил", spanish: "Tú vivías" },
+      { russian: "Он жил", spanish: "Él vivía" },
+      { russian: "Мы жили", spanish: "Nosotros vivíamos" },
+      { russian: "Вы жили", spanish: "Vosotros vivías" },
+      { russian: "Они жили", spanish: "Ellos vivían" },
+      { russian: "В то время как он смотрел фильм, я читал", spanish: "Mientras él miraba la película, yo leía" },
+      { russian: "Когда я был ребенком у меня было так много свободного времени", spanish: "Cuando era niño tenía tanto tiempo libre" },
+      { russian: "Я проводил много времени со своими друзьями", spanish: "Pasaba mucho tiempo con mis amigos" },
+      { russian: "Звонить", spanish: "llamar" },
+      { russian: "Я учился, когда он может позвонил", spanish: "Estudiaba cuando él me llamó" },
+      { russian: "Я был очень доволен", spanish: "Estaba muy contento" },
+      { russian: "Я знал это очень хорошо", spanish: "Lo sabía muy bien" },
+      { russian: "В то время как я отдыхал, он работал", spanish: "Mientras yo descansaba, él trabajaba" },
+      { russian: "Быть", spanish: "Ser" },
+      { russian: "Я был", spanish: "Era" },
+      { russian: "Ты был", spanish: "Eras" },
+      { russian: "Он, она, это был/а/о?", spanish: "Era" },
+      { russian: "Мы были", spanish: "Éramos" },
+      { russian: "Вы были", spanish: "Erais" },
+      { russian: "Они были", spanish: "Eran" },
+      { russian: "Было очень рано, когда я проснулся", spanish: "Era muy temprano cuando me desperté" },
+      { russian: "Было очень поздно, когда я встал", spanish: "Era muy terde cuando me levanté" },
+      { russian: "Я был дома, когда она позвонила мне", spanish: "Estaba en casa cuando ella me llamó" },
+      { russian: "Идти / ехать", spanish: "Ir" },
+      { russian: "Я ходил", spanish: "Iba" },
+      { russian: "Ты ходил", spanish: "Ibas" },
+      { russian: "Он ходил", spanish: "Iba" },
+      { russian: "Мы ходили", spanish: "Íbamos" },
+      { russian: "Вы ходили", spanish: "Íbais" },
+      { russian: "Они ходили", spanish: "Iban" },
+      { russian: "Видеть", spanish: "Ver" },
+      { russian: "Я видел", spanish: "Veía" },
+      { russian: "Ты видел", spanish: "Veías" },
+      { russian: "Он видел", spanish: "Veía" },
+      { russian: "Мы видели", spanish: "Veíamos" },
+      { russian: "Вы видели", spanish: "Veíais" },
+      { russian: "Они видели", spanish: "Veían" },
+      { russian: "Я видел то, что он делал", spanish: "Yo veía lo que él hacía" },
+      { russian: "Он ходил на уроки испанского 2 раза в неделю", spanish: "Él iba al curso de español dos veces a la semana" },
+      { russian: "Когда я был маленьким, я ходил каждую субботу на пляж", spanish: "Cuando era pequeño, iba todos los sábados a la playa" },
+      { russian: "Когда я был маленьким, я жил в очень маленьком доме", spanish: "Cuando era pequeño, vivía en una casa muy pequeña" },
+      { russian: "Я отдыхал. У меня было много свободного времени. Я не хотел работать", spanish: "Descansaba. Tenía mucho tiempo libre. No quería trabajar" }
+      // { russian: "", spanish: "" },
+
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

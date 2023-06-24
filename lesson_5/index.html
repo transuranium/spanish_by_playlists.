@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Тренировка испанского языка</title>
+
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Урок 5</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Работать", spanish: "Trabajar" },
+      { russian: "Изучать", spanish: "Aprender" },
+      { russian: "Жить", spanish: "Vivir" },
+      { russian: "Понимать", spanish: "Entender" },
+      { russian: "Я понимаю", spanish: "Yo entiendo" },
+      { russian: "Ты понимаешь", spanish: "Tú entiendes" },
+      { russian: "Он понимает", spanish: "Él entiende" },
+      { russian: "Мы понимаем", spanish: "Nosotros entendemos" },
+      { russian: "Вы понимаете", spanish: "Vosotros entendéis" },
+      { russian: "Они понимают", spanish: "Ellos entienden" },
+      { russian: "Я понимаю это лучше сейчас", spanish: "Lo entiendo mejor ahora" },
+      { russian: "Они понимают меня", spanish: "Ellos me entienden" },
+      { russian: "Думать", spanish: "Pensar" },
+      { russian: "Я думаю что это очень важно", spanish: "Penso que es muy importante" },
+      { russian: "Помнить", spanish: "Recordar" },
+      { russian: "Я помню", spanish: "Yo recuerdo" },
+      { russian: "Ты помнишь", spanish: "Tú requerdas" },
+      { russian: "Он помнит", spanish: "Él requerda" },
+      { russian: "Мы помним", spanish: "Nosotros recordamos" },
+      { russian: "Вы помните", spanish: "Vosotros recordáis" },
+      { russian: "Они помнят", spanish: "Ellos recuerdan" },
+      { russian: "Я помню это", spanish: "Lo recuerdo" },
+      { russian: "Я не помню это", spanish: "No lo requierdo" },
+      { russian: "Она помнит эти слова", spanish: "Ella requerda estas palabras" },
+      { russian: "Стоить", spanish: "Costar" },
+      { russian: "Возвращаться", spanish: "Возвращаться - Volver / regresar" },
+      { russian: "Я возвращаюсь домой очень поздно", spanish: "Vuelvo a casa muy tarde" },
+      { russian: "Я возвращаюсь домой очень рано", spanish: "Vuelvo a casa muy temprano" },
+      { russian: "Мой компьютер стоит две тысячи долларов", spanish: "Mi computadora cuesta dos mil dólares" },
+      { russian: "Переводить", spanish: "Traducir" },
+      { russian: "Я перевожу", spanish: "Yo traduzco" },
+      { russian: "Ты переводишь", spanish: "Tú traduces" },
+      { russian: "Он переводит", spanish: "Él traduce" },
+      { russian: "Мы переводим", spanish: "Nosotros traducimos" },
+      { russian: "Вы переводите", spanish: "Vosotros traducís" },
+      { russian: "Знать", spanish: "Conocer" },
+      { russian: "Я перевожу эти фразы", spanish: "Traduzco estas frases" },
+      { russian: "Я знаю этого человека", spanish: "Conozco a esta persona" },
+      { russian: "Я знаю этих людей", spanish: "Conozco a estas personas" },
+      { russian: "Знать себя", spanish: "Conocerse" },
+      { russian: "Мы знаем друг друга", spanish: "Nos conocemos" },
+      { russian: "Строить", spanish: "Construir" },
+      { russian: "Разрушать", spanish: "Destruir" },
+      { russian: "Я строю", spanish: "Yo construyo" },
+      { russian: "Ты строишь", spanish: "Tú construyes" },
+      { russian: "Он строит", spanish: "Él construye" },
+      { russian: "Вы строите", spanish: "Vosotros construís" },
+      { russian: "Они строят", spanish: "Ellos construyen" },
+      { russian: "Он строит дом", spanish: "Él construye una casa" },
+      { russian: "Они строят мост", spanish: "Ellos construyen un puente" },
+      { russian: "Они разрушают эту деревню", spanish: "Ellos destruyen este pueblo" },
+      { russian: "Делать", spanish: "Hacer" },
+      { russian: "Я делаю", spanish: "Yo hago" },
+      { russian: "Ты делаешь", spanish: "Tú haces" },
+      { russian: "Он делает", spanish: "El hace" },
+      { russian: "Мы делаем", spanish: "Nosotros hacemos" },
+      { russian: "Вы делаете", spanish: "Vosotros hacéis" },
+      { russian: "Они делают", spanish: "Ellos hacen" },
+      { russian: "Знать", spanish: "Saber" },
+      { russian: "Я знаю", spanish: "Lo sé" },
+      { russian: "Я не знаю", spanish: "No lo sé" },
+      { russian: "Я знаю что это очень важно", spanish: "Sé que es muy importante" },
+      { russian: "Давать", spanish: "Dar" },
+      { russian: "Даю", spanish: "Doy" },
+      { russian: "Выходить", spanish: "Salir" },
+      { russian: "Выхожу", spanish: "Salgo" },
+      { russian: "Я даю это тебе", spanish: "Te lo doy" },
+      { russian: "Я выхожу из дома", spanish: "Salgo de casa" },
+      { russian: "Иметь", spanish: "Tener" },
+      { russian: "Я имею", spanish: "Yo tengo" },
+      { russian: "Ты имеешь", spanish: "Tú tienes" },
+      { russian: "Он имеет", spanish: "Él tiene" },
+      { russian: "Мы имеем", spanish: "Nosotros tenemos" },
+      { russian: "Вы имеете", spanish: "Vosotros tenéis" },
+      { russian: "Они имеют", spanish: "Ellos tienen" },
+      { russian: "У него два вопроса", spanish: "El tiene dos preguntas" },
+      { russian: "Сколько тебе лет", spanish: "¿Cuantos años tienes?" },
+      { russian: "Мне двадцать лет", spanish: "Tengo veinte años" },
+      { russian: "Идти", spanish: "Ir" },
+      { russian: "Я иду", spanish: "Yo voy" },
+      { russian: "Ты идёшь", spanish: "Tú vas" },
+      { russian: "Он идёт", spanish: "Él va" },
+      { russian: "Мы идём", spanish: "Nosotros vamos" },
+      { russian: "Вы идёте", spanish: "Vosotros vais" },
+      { russian: "Они идут", spanish: "Ellos van" },
+      { russian: "Я иду на работу", spanish: "Voy al trabajo" },
+      { russian: "Я иду в школу", spanish: "Voy a la escuela" },
+      { russian: "Я иду в университет", spanish: "Voy a la universidad" },
+      { russian: "Я иду работать", spanish: "Voy a trabajar" },
+      { russian: "Я иду на мою работу", spanish: "Voy a mi trabajo" },
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

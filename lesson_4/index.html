@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Тренировка испанского языка</title>
+
+  <style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Урок 4</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Иметь", spanish: "Tener" },
+      { russian: "Имею", spanish: "Tengo" },
+      { russian: "Неопределенные артикли", spanish: "Un / una" },
+      { russian: "У меня есть машина", spanish: "Tengo un coche" },
+      { russian: "У меня есть брат", spanish: "Tengo un hermano" },
+      { russian: "У меня есть сестра", spanish: "Tengo una hermana" },
+      { russian: "У меня есть идея", spanish: "Tengo una idea" },
+      { russian: "У меня есть вопрос", spanish: "Tengo una pregunta" },
+      { russian: "У меня есть семья", spanish: "Tengo una familia" },
+      { russian: "У меня есть время", spanish: "Tengo tiempo" },
+      { russian: "У меня проблема", spanish: "Tengo un problema" },
+      { russian: "Видеть", spanish: "Ver" },
+      { russian: "Вижу", spanish: "Veo" },
+      { russian: "Я вижу мужчину", spanish: "Veo un hombre" },
+      { russian: "Я вижу женщину", spanish: "Veo una mujer" },
+      { russian: "Я вижу машину", spanish: "Veo un coche" },
+      { russian: "Я вижу эту машину", spanish: "Veo este coche" },
+      { russian: "Я вижу отель", spanish: "Veo un hotel" },
+      { russian: "Я вижу дом", spanish: "Veo una casa" },
+      { russian: "Некоторые", spanish: "Algunos / algunas" },
+      { russian: "Некоторые", spanish: "Unos / unas" },
+      { russian: "У меня есть некоторые идеи", spanish: "Tengo algunas ideas" },
+      { russian: "У меня есть некоторые проблемы", spanish: "Tengo algunos problemas" },
+      { russian: "У меня есть некоторые проблемы", spanish: "Tengo unos problemas" },
+      { russian: "У меня есть некоторые идеи", spanish: "Tengo unas ideas" },
+      { russian: "Знать", spanish: "Saber" },
+      { russian: "Много", spanish: "Mucho" },
+      { russian: "Мало", spanish: "Poco" },
+      { russian: "Много чего-то", spanish: "Muchos / muchas" },
+      { russian: "Мало чего-то", spanish: "Pocos / pocas" },
+      { russian: "Он знает много", spanish: "Él sabe mucho" },
+      { russian: "Она знает мало", spanish: "Ella sabe poco" },
+      { russian: "У меня много друзей", spanish: "Tengo muchos amigos" },
+      { russian: "У меня мало вопросов", spanish: "Tengo pocas preguntas" },
+      { russian: "У меня мало ошибок", spanish: "Tengo pocos errores" },
+      { russian: "У меня много книг", spanish: "Tengo muchos libres" },
+      { russian: "У меня много времени", spanish: "Tengo mucho tiempo" },
+      { russian: "У меня мало времени", spanish: "Tengo poco tiempo" },
+      { russian: "Определённые артикли (ед. ч.)", spanish: "El / la" },
+      { russian: "Определённые артикли (мн. ч.)", spanish: "Los / las" },
+      { russian: "Мальчик очень талантливый", spanish: "El chico es muy talentoso" },
+      { russian: "Девочка очень ленивая", spanish: "La chica es muy perezosa" },
+      { russian: "Книги интересные", spanish: "Los libros son interesantes" },
+      { russian: "Видео очень смешное", spanish: "El vídeo es muy divertido" },
+      { russian: "Уроки очень полезные", spanish: "Las lecciones son muy útiles" },
+      { russian: "Конференция очень скучная", spanish: "La confirencia es muy aburrida" },
+      { russian: "Результаты очень плохие", spanish: "Los resultados son muy malos" },
+      { russian: "Результаты очень хорошие", spanish: "Los resultados son muy buenos" },
+      { russian: "Стол зелёный", spanish: "La mesa es verde" },
+      { russian: "Стулья чёрные", spanish: "Las sillas son negras" },
+      { russian: "Курс очень эффективный", spanish: "El curso es muy efectivo" },
+      { russian: "Компьютер новый", spanish: "La computadora es nueva" },
+      { russian: "Компьютер новый (исп.)", spanish: "El ordenador es nuevo" },
+      { russian: "У меня есть книга. Книга очень интересная", spanish: "Tengo un libro. El libro es muy  interesante" },
+      { russian: "Я вижу отель. Отель очень дорогой", spanish: "Veo un hotel. El hotel es muy caro" },
+      { russian: "Это интересная идея", spanish: "Es una idea interesante" },
+      { russian: "Эта идея очень интересная", spanish: "Esta idea es muy interesante" },
+      { russian: "Это очень интересная идея", spanish: "Es una idea muy interesante" },
+      { russian: "Вопрос хороший", spanish: "La pregunta es buena" },
+      { russian: "Отель дешёвый", spanish: "El hotel es barato" },
+      { russian: "Этот отель очень дорогой", spanish: "Este hotel es muy caro" },
+      { russian: "Это большая проблема", spanish: "Es un gran problema" },
+      { russian: "Это хороший результат", spanish: "Es un buen resultado" },
+      { russian: "Моя сестра очень талантливая", spanish: "Mi hermana es muy talentosa" },
+      { russian: "Мой брат очень талантливый", spanish: "Mi hermano es muy talentoso" },
+      { russian: "Верить", spanish: "Creer" },
+      { russian: "Я думаю что", spanish: "Qreo que / opino que" },
+      { russian: "Parecer", spanish: "Казаться" },
+      { russian: "Я думаю что это хорошо", spanish: "Qreo que es bueno" },
+      { russian: "Я думаю что эта идея очень интересная", spanish: "Opino que esta idea es muy interesante" },
+      { russian: "Мне кажется что это очень интересная идея", spanish: "Me parece que es una idea muy interesante" },
+      { russian: "Это место очень красивое", spanish: "Este lugar es muy hermoso" },
+      { russian: "Это красивое место", spanish: "Es un lugar hermoso" },
+      { russian: "Это очень красивое место", spanish: "Es un lugar muy hermoso" },
+      { russian: "Я думаю что это очень красивое место", spanish: "Qreo que es un lugar muy hermoso" },
+      { russian: "Я думаю что мой результат очень хороший", spanish: "Opino que mi resultado es muy bueno" },
+      { russian: "Я думаю что мои результаты очень хорошие", spanish: "Qreo que mis resultados son muy buenos" },
+      { russian: "Мне кажется что это очень дорого", spanish: "Me parece que es muy caro" }
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+

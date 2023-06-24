@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Тренировка испанского языка</title>
+<style>
+    /* Общие стили для всех устройств */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exercise-container {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .exercise-text {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .check-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Стили для устройств с шириной экрана до 600 пикселей (например, мобильных устройств) */
+    @media (max-width: 600px) {
+      .exercise-container {
+        max-width: 100%;
+        margin: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Урок 0</h1>
+  
+  <div class="exercise-container">
+    <div class="exercise-text" id="exerciseText"></div>
+    <div class="input-container">
+      <input type="text" class="input-field" id="answerInput">
+      <button class="check-button" onclick="checkAnswer()">Проверка</button>
+    </div>
+    <div class="result" id="resultText"></div>
+  </div>
+
+  <div class="result" id="resultText">
+    Правильный ответ: <span id="correctAnswerText"></span>
+  </div>
+  
+
+  <script>
+    var phrases = [
+      { russian: "Канал", spanish: "Canal" },
+      { russian: "Базовый", spanish: "Básico" },
+      { russian: "Доктор", spanish: "Doctor" },
+      { russian: "Финал / финальный", spanish: "Final" },
+      { russian: "Формальный", spanish: "Formal" },
+      { russian: "Важный", spanish: "Importante" },
+      { russian: "Интересный", spanish: "Interesante" },
+      { russian: "Трудный", spanish: "Difícil" },
+      { russian: "Правильный", spanish: "Correcto" },
+      { russian: "Капитал", spanish: "Capital" },
+      { russian: "Директор", spanish: "Director" },
+      { russian: "Неформальный", spanish: "Informal" },
+      { russian: "Проблема", spanish: "Problema" },
+      { russian: "Транспорт", spanish: "Transporte" },
+      { russian: "Футбол", spanish: "Fútbol" },
+      { russian: "Глобальный", spanish: "Global" },
+      { russian: "Меню", spanish: "Menú" },
+      { russian: "Хобби", spanish: "Hobby" },
+      { russian: "Соль", spanish: "Sal" },
+      { russian: "Шоколад", spanish: "Chocolate" },
+      { russian: "Период", spanish: "Período" },
+      { russian: "Газ", spanish: "Gas" },
+      { russian: "Фильм", spanish: "Film" },
+      { russian: "Автор", spanish: "Autor" },
+      { russian: "Экскурсия", spanish: "Excursión" },
+      { russian: "Метро / метр", spanish: "Metro" },
+      { russian: "Эффективный / наличные", spanish: "Efectivo" },
+      { russian: "Форма", spanish: "Forma" },
+      { russian: "Культура", spanish: "Cultura" },
+      { russian: "Телефон", spanish: "Teléfono" },
+      { russian: "Ночь", spanish: "Noche" },
+      { russian: "Отель", spanish: "Hotel" },
+      { russian: "Миллион", spanish: "Millión" },
+      { russian: "Метод", spanish: "Método" },
+      { russian: "Телевизор", spanish: "Televisor" },
+      { russian: "Центральный", spanish: "Central" },
+      { russian: "Система", spanish: "Sistema" },
+      { russian: "Персональный", spanish: "Personal" },
+      { russian: "Вариант", spanish: "Variante" },
+      { russian: "Радио", spanish: "Radio" },
+      { russian: "Контроль", spanish: "Control" },
+      { russian: "Возможный", spanish: "Posible" },
+      { russian: "Минута", spanish: "Minuto" },
+      { russian: "Планета", spanish: "Planeta" },
+      { russian: "Видео", spanish: "Vídeo / video" },
+      { russian: "Регулярный", spanish: "Regular" },
+      { russian: "Супер", spanish: "Súper" },
+      { russian: "Интересный", spanish: "Interesante" },
+      { russian: "Информативный", spanish: "Informativo" },
+      { russian: "Автобус", spanish: "Autobús" },
+      { russian: "Мелодичный", spanish: "Melódico" },
+      { russian: "Этод метод очень эффективен", spanish: "Este método es muy efectivo" },
+      { russian: "Мне нравится эта культура", spanish: "Me gusta esta cultura" },
+      { russian: "Мне нравится эта идея", spanish: "Me gusta esta idea" },
+      { russian: "Я хочу посетить Испанию", spanish: "Quiero visitar España" },
+      { russian: "Это важно", spanish: "Es importante" },
+      { russian: "Это гениально", spanish: "Es genial" },
+      { russian: "Это очень интересно", spanish: "Es muy interesante" },
+      { russian: "Это возможно", spanish: "Es posible" },
+      { russian: "Это невозможно", spanish: "Es imposible" },
+      { russian: "Нет ничего невозможного", spanish: "Nada es imposible" }
+
+
+    ];
+  
+    var currentPhraseIndex = 0;
+  
+    function showCurrentPhrase() {
+      var exerciseText = document.getElementById("exerciseText");
+      exerciseText.textContent = phrases[currentPhraseIndex].russian;
+      document.getElementById("answerInput").value = "";
+      document.getElementById("resultText").textContent = "";
+  
+      document.getElementById("answerInput").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          checkAnswer();
+        }
+      });
+    }
+  
+    function checkAnswer() {
+      var userAnswer = document.getElementById("answerInput").value;
+      var correctAnswer = phrases[currentPhraseIndex].spanish;
+  
+      var correctAnswerText = document.getElementById("correctAnswerText");
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
+      } else {
+        correctAnswerText.textContent = correctAnswer;
+      }
+  
+      currentPhraseIndex++;
+      if (currentPhraseIndex >= phrases.length) {
+        currentPhraseIndex = 0; // Возвращаемся к первому слову
+      }
+  
+      showCurrentPhrase();
+    }
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      showCurrentPhrase();
+  
+      document.getElementById("checkButton").addEventListener("click", function() {
+        checkAnswer();
+      });
+    });
+  </script>
+  
+  
+  
+
+</body>
+</html>
+
+
+
