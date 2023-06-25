@@ -80,7 +80,7 @@
   </div>
 
   <div class="result" id="resultText">
-    Правильный ответ: <span id="correctAnswerText"></span>
+    Правильный ответ (предыдущий): <span id="correctAnswerText"></span>
   </div>
   
 
@@ -164,23 +164,20 @@
     }
   
     function checkAnswer() {
-      var userAnswer = document.getElementById("answerInput").value;
-      var correctAnswer = phrases[currentPhraseIndex].spanish;
-  
-      var correctAnswerText = document.getElementById("correctAnswerText");
-      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
-      } else {
-        correctAnswerText.textContent = correctAnswer;
-      }
-  
-      currentPhraseIndex++;
-      if (currentPhraseIndex >= phrases.length) {
-        currentPhraseIndex = 0; // Возвращаемся к первому слову
-      }
-  
-      showCurrentPhrase();
-    }
+  var userAnswer = document.getElementById("answerInput").value;
+  var correctAnswer = phrases[currentPhraseIndex].spanish;
+
+  var correctAnswerText = document.getElementById("correctAnswerText");
+  correctAnswerText.textContent = correctAnswer; // Показать правильный ответ всегда
+
+  currentPhraseIndex++;
+  if (currentPhraseIndex >= phrases.length) {
+    currentPhraseIndex = 0; // Возвращаемся к первому слову
+  }
+
+  showCurrentPhrase();
+}
+
   
     document.addEventListener("DOMContentLoaded", function() {
       showCurrentPhrase();

@@ -77,7 +77,7 @@
   </div>
 
   <div class="result" id="resultText">
-    Правильный ответ: <span id="correctAnswerText"></span>
+    Правильный ответ (предыдущий): <span id="correctAnswerText"></span>
   </div>
   
 
@@ -180,7 +180,6 @@
   
       var correctAnswerText = document.getElementById("correctAnswerText");
       if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-        correctAnswerText.textContent = ""; // Очистить содержимое, если ответ правильный
       } else {
         correctAnswerText.textContent = correctAnswer;
       }
